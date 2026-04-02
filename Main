@@ -1,0 +1,86 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Employee {
+public:
+    int id;
+    string name;
+    float salary;
+};
+
+vector<Employee> employees;
+
+void addEmployee() {
+    Employee e;
+    cout << "Enter ID Name Salary: ";
+    cin >> e.id >> e.name >> e.salary;
+    employees.push_back(e);
+}
+
+void displayEmployees() {
+    for (auto e : employees) {
+        cout << e.id << " " << e.name << " " << e.salary << endl;
+    }
+}
+
+void searchEmployee() {
+    int id;
+    cout << "Enter ID to search: ";
+    cin >> id;
+
+    for (auto e : employees) {
+        if (e.id == id) {
+            cout << e.id << " " << e.name << " " << e.salary << endl;
+            return;
+        }
+    }
+    cout << "Not found\n";
+}
+
+void deleteEmployee() {
+    int id;
+    cout << "Enter ID to delete: ";
+    cin >> id;
+
+    for (int i = 0; i < employees.size(); i++) {
+        if (employees[i].id == id) {
+            employees.erase(employees.begin() + i);
+            cout << "Deleted\n";
+            return;
+        }
+    }
+    cout << "Not found\n";
+}
+
+void highestSalary() {
+    if (employees.empty()) {
+        cout << "No data\n";
+        return;
+    }
+
+    Employee top = employees[0];
+    for (auto e : employees) {
+        if (e.salary > top.salary) {
+            top = e;
+        }
+    }
+
+    cout << "Highest Salary: " << top.name << " " << top.salary << endl;
+}
+
+int main() {
+    int choice;
+
+    while (true) {
+        cout << "\n1.Add 2.Display 3.Search 4.Delete 5.Highest Salary 6.Exit\n";
+        cin >> choice;
+
+        if (choice == 1) addEmployee();
+        else if (choice == 2) displayEmployees();
+        else if (choice == 3) searchEmployee();
+        else if (choice == 4) deleteEmployee();
+        else if (choice == 5) highestSalary();
+        else break;
+    }
+}
