@@ -66,7 +66,48 @@ void sortStudents() {
     }
     cout << "Sorted by marks (descending)\n";
 }
+void deleteStudent() {
+    int id;
+    cout << "Enter ID to delete: ";
+    cin >> id;
 
+    for (int i = 0; i < students.size(); i++) {
+        if (students[i].id == id) {
+            students.erase(students.begin() + i);
+            cout << "Student deleted\n";
+            return;
+        }
+    }
+    cout << "Student not found\n";
+}
+void findTopper() {
+    if (students.empty()) {
+        cout << "No data\n";
+        return;
+    }
+
+    Student top = students[0];
+    for (auto s : students) {
+        if (s.marks > top.marks) {
+            top = s;
+        }
+    }
+
+    cout << "Topper: " << top.id << " " << top.name << " " << top.marks << endl;
+}
+void averageMarks() {
+    if (students.empty()) {
+        cout << "No data\n";
+        return;
+    }
+
+    float sum = 0;
+    for (auto s : students) {
+        sum += s.marks;
+    }
+
+    cout << "Average Marks: " << sum / students.size() << endl;
+}
 int main() {
     loadFromFile();
 
